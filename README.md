@@ -18,7 +18,7 @@
 
 ## Features and Quirks
 
-Compatatible with 1.21-1.21.4
+Compatible with 1.21-1.21.4
 
 Many advancements will not show up in the vanilla menu, this is because they were overriden in order to prevent the toast messages from popping up. This makes an external tracker like AATool or SwiftAA almost necessary (though SpeedrunIGT still works)
 

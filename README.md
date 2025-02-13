@@ -5,7 +5,7 @@
 1. Open the "create world" menu
 2. Turn "allow commands" on
 3. Under the "more" tab, click "datapacks"
-4. Drag and drop the pack into the window
+4. Drag and drop the [pack](https://github.com/Slackow/AA-Endgame-Practice-1.21/releases/latest) into the window
 5. Move it from available packs to selected packs
 6. Create the world, Information will show up in chat
 

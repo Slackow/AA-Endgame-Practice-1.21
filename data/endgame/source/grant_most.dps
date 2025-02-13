@@ -1,3 +1,5 @@
+# There is a minus placed next to advancements that will not be granted
+# To do this to specific criteria, the advancement must also not be granted
 raw_advs = r"""
 end/root
 end/kill_dragon
@@ -350,6 +352,9 @@ prev = None
             elif adv[-1] != '-':
                 /advancement grant @p only ${prev[:-1]} $adv
             continue
+        if adv[-1] == '-':
+            prev = adv
+            continue
         adv = 'minecraft:' + adv
         obj = {
             'criteria': {
@@ -360,5 +365,5 @@ prev = None
         }
         if prev:
             obj['parent'] = prev
-        __other__("advancement")[adv] = obj 
+        __other__("advancement")[adv] = obj
         prev = adv

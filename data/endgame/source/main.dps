@@ -7,3 +7,42 @@
         /tellraw @a {"text":"[Find End City]","color":"light_purple",\
         "clickEvent":{"action":"run_command","value":"/locate structure end_city"},\
         "hoverEvent":{"action":"show_text","contents":[{"text":"/locate structure end_city"}]}}
+
+def tag(*values):
+    return {'values': values}
+
+create tags/worldgen/biome ocean -> tag("ocean", "deep_ocean",
+    "lukewarm_ocean", "deep_lukewarm_ocean", "warm_ocean")
+
+# Explorer maps require structure tags, not structures
+create tags/worldgen/structure desert_temple -> tag("desert_pyramid")
+create tags/worldgen/structure ancient_city -> tag("ancient_city")
+
+def explorer_map(id: str, name: str):
+    entry = {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "function": "minecraft:exploration_map",
+            "decoration": "minecraft:mansion",
+            "skip_existing_chunks": False,
+            "search_radius": 4500,
+            "destination": f"{ns}:{id}",
+            "zoom": 1,
+          },
+          {
+            "function": "minecraft:set_name",
+            "name": {"text": f"Finding {name}..."},
+            "target": "item_name",
+          }
+        ],
+        "name": "minecraft:map"
+    }
+    return {"pools": [{
+            "rolls": 1.0,
+            "bonus_rolls": 0.0,
+            "entries": [ entry ]
+          }]}
+
+create loot_table ancient_city_map -> explorer_map('ancient_city', 'Ancient City')
+create loot_table temple_map -> explorer_map('desert_temple', 'Desert Temple')

@@ -9,6 +9,7 @@
     /execute positioned 0 ~ 0 run function:
         /loot replace entity @p weapon.mainhand loot endgame:temple_map
         /function [] with entity @p SelectedItem.components.minecraft:map_decorations.+:
+            /tellraw @p [{"text":""},{"text":"AA Endgame Practice by ","color":"yellow"},{"text":"Slackow ","bold":true,"color":"light_purple"},{"text":"[YT]","bold":true,"underlined":true,"color":"red","clickEvent":{"action":"open_url","value":"https://youtube.com/slackow"},"hoverEvent":{"action":"show_text","contents":[{"text":"Go to my YouTube"}]}},{"text":" "},{"text":"[GH]","bold":true,"underlined":true,"color":"gray","clickEvent":{"action":"open_url","value":"https://github.com/slackow"},"hoverEvent":{"action":"show_text","contents":[{"text":"Go to my GitHub"}]}}]
             /$tellraw @a {"text":"Found Temple at $(x) $(z)","color":"yellow"}
             /$spreadplayers $(x) $(z) 14 150 false @a
             /$execute at @p unless biome ~ ~ ~ desert run function [] {x:$(x),z:$(z)}:

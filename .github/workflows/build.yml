@@ -17,8 +17,8 @@ jobs:
         with:
           repository: slackow/packscript
           path: packscript
-      - run: python packscript/packscript.py c -o AA_Endgame_Practice.zip
+      - run: python packscript/packscript.py c -o AA_Endgame_Practice
       - uses: actions/upload-artifact@v4
         with:
           name: AA_Endgame_Practice_1.21
-          path: AA_Endgame_Practice.zip
+          path: AA_Endgame_Practice

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File to Zip Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #drop-area {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Structure File to Datapack Converter</h1>
+    <p>the datapack will auto-download</p>
+    <div>
+        <div id="drop-area">Drop your structure file here</div>
+        <input type="file" id="file-input">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let dropArea = document.getElementById("drop-area");
+            let fileInput = document.getElementById("file-input");
+
+            dropArea.addEventListener("click", function () {
+                fileInput.click();
+            });
+
+            dropArea.addEventListener("dragover", function (event) {
+                event.preventDefault();
+                dropArea.style.borderColor = "blue";
+            });
+
+            dropArea.addEventListener("dragleave", function () {
+                dropArea.style.borderColor = "#333";
+            });
+
+            dropArea.addEventListener("drop", function (event) {
+                event.preventDefault();
+                dropArea.style.borderColor = "#333";
+                let file = event.dataTransfer.files[0];
+                if (file) {
+                    createZip(file);
+                }
+            });
+
+            fileInput.addEventListener("change", function (event) {
+                let file = event.target.files[0];
+                if (file) {
+                    createZip(file);
+                }
+            });
+        });
+
+        function createZip(file) {
+            let zip = new JSZip();
+            let fileReader = new FileReader();
+
+            fileReader.onload = function (event) {
+                zip.file("data/endgame/structure/" + file.name, event.target.result);
+                zip.file("pack.mcmeta", JSON.stringify({ pack: {
+                    description: "Inventory",
+                    pack_format: 61,
+                    supported_formats: [48, 61],
+                }}, null, 2));
+
+                zip.generateAsync({ type: "blob" }).then(function (content) {
+                    let a = document.createElement("a");
+                    a.href = URL.createObjectURL(content);
+                    a.download = "endgame_inventory.zip";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            };
+
+            fileReader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>

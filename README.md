@@ -26,8 +26,6 @@ You probably want to turn off the auto-switching to AA option in SpeedrunIGT, th
 
 You will always be placed near a temple, and your spawn point moved. So your coordinate may be pretty large. You will always be placed in a desert. There will also always be an end portal spawning above your head.
 
-The Inventory is hard to edit, you have to edit the file under `data/endgame/function/inventory.mcfunction` and add your own `item replace` or `give` commands (make sure to remove slashes at the start of additional commands).
-
-Unfortunately due to the hardcoded nature of a datapack it's nearly impossible to make this easily configurable. The function file editing isn't that bad for minor adjustments though. You can use a generator such as this one for [general items](https://www.gamergeeks.net/apps/minecraft/give-command-generator) or this one for [shulker boxes](https://www.gamergeeks.net/apps/minecraft/give-command-generator/chests-shulkers).
+The inventory can be edited with `/function edit_inventory`, you put the items in a chest and it will save it to a structure file that you can package into a datapack, that when combined with the main pack will have a custom inventory.
 
 This project was made with [PackScript](https://www.github.com/Slackow/PackScript), if you want to do more extensive editing of this project, you should get the source and compile it with PackScript.

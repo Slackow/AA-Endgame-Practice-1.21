@@ -67,8 +67,9 @@
 /function minecraft:edit_inventory[]:
     /execute rotated ~ 0 positioned ^ ^ ^3 positioned over motion_blocking_no_leaves run place template endgame:inventory_default
     /execute rotated ~ 0 positioned ^ ^ ^3 positioned over motion_blocking_no_leaves run place template endgame:inventory
-    /tellraw @a {"text":"[EDIT INVENTORY]", "color":"red", "bold":true}
-    /tellraw @a {"text":"1. Press the save button in the bottom right corner of the structure block menu, or apply redstone power to it", "color":"red"}
+    /gamemode creative @a
+    /tellraw @a {"text":"[EDIT INVENTORY] FOLLOW ALL STEPS!", "color":"red", "bold":true}
+    /tellraw @a {"text":"1. Press the save button in the bottom right corner of the structure block menu, or apply redstone power to it", "color":"dark_red"}
     /tellraw @a {"text":"2. Get the generated structure file, it is under the world folder as generated/endgame/structures/inventory.nbt", "color":"red"}
-    /tellraw @a [{"text":"3. Put that file into a datapack. You can use this page to do that: ", "color":"red"},{"text":"[Generator]","bold":true,"underlined":true,"color":"gray","clickEvent":{"action":"open_url","value":"https://html-preview.github.io/?url=https://github.com/Slackow/AA-Endgame-Practice-1.21/edit_inventory.html"},"hoverEvent":{"action":"show_text","contents":[{"text":"Structure File to Datapack"}]}}]
+    /tellraw @a [{"text":"3. Put that file into a datapack. You can use this page to do that: ", "color":"dark_red"},{"text":"[Generator]","bold":true,"underlined":true,"color":"gray","clickEvent":{"action":"open_url","value":"https://rawcdn.githack.com/Slackow/AA-Endgame-Practice-1.21/9e15089d4f01e89d288f3d1886a104cce0c448d0/edit_inventory.html"},"hoverEvent":{"action":"show_text","contents":[{"text":"Structure File to Datapack"}]}}]
     /tellraw @a {"text":"4. Place the generated datapack into the datapacks folder of the world. You will now be able to recreate this world to have that inventory.", "color":"red"}

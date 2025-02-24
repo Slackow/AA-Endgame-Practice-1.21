@@ -22,27 +22,27 @@ def explorer_map(id: str, name: str):
     entry = {
         "type": "minecraft:item",
         "functions": [
-          {
-            "function": "minecraft:exploration_map",
-            "decoration": "minecraft:mansion",
-            "skip_existing_chunks": False,
-            "search_radius": 4500,
-            "destination": f"{ns}:{id}",
-            "zoom": 1,
-          },
-          {
-            "function": "minecraft:set_name",
-            "name": {"text": f"Finding {name}..."},
-            "target": "item_name",
-          }
+            {
+                "function": "minecraft:exploration_map",
+                "decoration": "minecraft:mansion",
+                "skip_existing_chunks": False,
+                "search_radius": 4500,
+                "destination": f"{ns}:{id}",
+                "zoom": 1,
+            },
+            {
+                "function": "minecraft:set_name",
+                "name": {"text": f"Finding {name}..."},
+                "target": "item_name",
+            }
         ],
         "name": "minecraft:map"
     }
     return {"pools": [{
-            "rolls": 1.0,
-            "bonus_rolls": 0.0,
-            "entries": [ entry ]
-          }]}
+                "rolls": 1.0,
+                "bonus_rolls": 0.0,
+                "entries": [ entry ]
+            }]}
 
 create loot_table ancient_city_map -> explorer_map('ancient_city', 'Ancient City')
 create loot_table temple_map -> explorer_map('desert_temple', 'Desert Temple')

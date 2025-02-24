@@ -1,0 +1,49 @@
+effects = r'''
+hero_of_the_village
+haste
+jump_boost
+conduit_power
+mining_fatigue
+trial_omen
+raid_omen
+bad_omen
+levitation
+glowing
+darkness
+nausea
+dolphins_grace
+blindness
+wither
+hunger
+infested
+invisibility
+night_vision
+oozing
+poison
+regeneration
+slow_falling
+slowness
+speed
+strength
+water_breathing
+weakness
+weaving
+wind_charged
+absorption
+resistance
+fire_resistance
+'''
+effects = effects.strip().split('\n')
+/function give_effects[$ns:first_load]:
+    /scoreboard objectives add hdwgh dummy "Missing Effects"
+    /scoreboard objectives modify hdwgh numberformat blank
+    for i, effect in enumerate(effects):
+        /scoreboard players set $effect hdwgh -$i
+
+/function [tick]:
+    /execute unless data entity @p active_effects[28] run scoreboard objectives setdisplay sidebar
+    /execute unless data entity @p active_effects[28] run return 0
+    /function $ns:give_effects
+    for effect in effects:
+        /execute if data entity @p active_effects[{id:'minecraft:$effect'}] run scoreboard players reset $effect hdwgh
+    /scoreboard objectives setdisplay sidebar hdwgh

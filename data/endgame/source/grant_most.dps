@@ -346,7 +346,7 @@ prev = None
     for adv in advs:
         if '/' not in adv and prev:
             if prev[-1] != '-':
-                __other__('advancement')[prev]['criteria'][adv] = {
+                dp.advancement[prev]['criteria'][adv] = {
                     'trigger': 'minecraft:tick'
                 }
             elif adv[-1] != '-':
@@ -365,5 +365,22 @@ prev = None
         }
         if prev:
             obj['parent'] = prev
-        __other__("advancement")[adv] = obj
+        dp.advancement[adv] = obj
         prev = adv
+
+/function [tick]:
+    to_complete = [adv[:-1] + '=true' for adv in advs if adv[-1] == '-' and '/' in adv]
+    /execute if entity @p[advancements={${','.join(to_complete)}}] \
+             unless score completed t matches 1 run function print_time[]:
+        /scoreboard players set 20 t 20
+        /scoreboard players set completed t 1
+        /scoreboard players operation min t = @p time
+        /scoreboard players operation min t /= 20 t
+        /scoreboard players operation sec t = min t
+        /scoreboard players set 60 t 60
+        /scoreboard players operation min t /= 60 t
+        /scoreboard players operation sec t %= 60 t
+        /scoreboard players reset e t
+        /execute if score sec t matches 0..9 run scoreboard players set e t 0
+        /tellraw @a [{"text":"All Advancements Complete! Time: ["},\
+        {"score":{"name":"min","objective":"t"}},{"text":":"},{"score":{"name":"e","objective":"t"}},{"score":{"name":"sec","objective":"t"}},{"text":"]"}]

@@ -21,6 +21,7 @@
                 /function $ns:start
 
 /function start[]:
+    /scoreboard objectives add time minecraft.custom:minecraft.play_time
     /loot replace entity @p weapon.mainhand loot endgame:ancient_city_map
     /function [] with entity @p SelectedItem.components.minecraft:map_decorations.+:
         /$forceload add $(x) $(z)

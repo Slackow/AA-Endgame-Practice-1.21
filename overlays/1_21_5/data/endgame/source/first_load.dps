@@ -1,0 +1,77 @@
+/function load[load]:
+    /execute unless entity @p run schedule function $ns:load 1
+    /execute if entity @p run function:
+        /scoreboard objectives add t dummy
+        /execute store success score t t run scoreboard objectives add s dummy
+        /execute if score t t matches 1.. run function #$ns:first_load
+
+/function init[$ns:first_load]:
+    /execute positioned 0 ~ 0 run function:
+        /loot replace entity @p weapon.mainhand loot endgame:temple_map
+        /function [] with entity @p SelectedItem.components.minecraft:map_decorations.+:
+            /tellraw @p [{"text":""},{"text":"AA Endgame Practice by ","color":"yellow"},{"text":"Slackow ","bold":true,"color":"light_purple"},{"text":"[YT]","bold":true,"underlined":true,"color":"red","click_event":{"action":"open_url","url":"https://youtube.com/slackow"},"hover_event":{"action":"show_text","value":[{"text":"Go to my YouTube"}]}},{"text":" "},{"text":"[GH]","bold":true,"underlined":true,"color":"gray","click_event":{"action":"open_url","url":"https://github.com/Slackow"},"hover_event":{"action":"show_text","value":[{"text":"Go to my GitHub"}]}}]
+            /$tellraw @a {"text":"Found Temple at $(x) $(z)","color":"yellow"}
+            /$spreadplayers $(x) $(z) 14 150 false @a
+            /$execute at @p unless biome ~ ~ ~ desert run function [] {x:$(x),z:$(z)}:
+                /$spreadplayers $(x) $(z) 14 150 false @a
+                /$execute at @p unless biome ~ ~ ~ desert run function $__f {x:$(x),z:$(z)}
+            /execute as @p at @s positioned over motion_blocking_no_leaves run function:
+                /tp @a ~ ~ ~
+                /setworldspawn
+                /function $ns:start
+
+/function start[]:
+    /scoreboard objectives add time minecraft.custom:minecraft.play_time
+    /loot replace entity @p weapon.mainhand loot endgame:ancient_city_map
+    /function [] with entity @p SelectedItem.components.minecraft:map_decorations.+:
+        /$forceload add $(x) $(z)
+        /$place template endgame:nether_portal $(x) -35 $(z)
+        /$forceload remove $(x) $(z)
+        /$data modify storage s ac set value {x:$(x),z:$(z)}
+        /execute store result storage s ac.nx int 0.125 run data get storage s ac.x
+        /execute store result storage s ac.nz int 0.125 run data get storage s ac.z
+        /execute store result storage s sp.x int 1 run data get entity @p Pos[0]
+        /execute store result storage s sp.z int 1 run data get entity @p Pos[2]
+        /tellraw @a {"text":"Placed End Portal above spawn","color":"gray"}
+        /function minecraft:coords[]:
+            /tellraw @a [{"text":"","color":"green"},{"text":"Spawn: ","color":"yellow"},{"text":"["},{"storage":"s","nbt":"sp.x"},{"text":", "},{"storage":"s","nbt":"sp.z"},{"text":"]"}]
+            /function [] with storage s ac:
+                /$tellraw @p [{"text":""},{"text":"Placed Portal in Ancient City at ","color":"aqua"},{"text":"[$(x), -35, $(z)]","color":"green","click_event":{"action":"suggest_command","command":"$(x), $(z) city"}},{"text":"\nNether Ancient City: ","color":"red"},{"text":"[$(nx), $(nz)]","color":"green","click_event":{"action":"suggest_command","command":"$(nx), $(nz) ncity"}}]
+                /tellraw @a [{"text":"[Find Monument] ","color":"dark_aqua","click_event":{"action":"run_command","command":"/locate structure monument"},"hover_event":{"action":"show_text","value":[{"text":"/locate structure monument"}]}},\
+                {"text":"[Find Ocean]\n","color":"blue","click_event":{"action":"run_command","command":"/locate biome #endgame:ocean"},"hover_event":{"action":"show_text","value":[{"text":"/locate biome #endgame:ocean"}]}},\
+                {"text":"[Find Trial Chambers] ","color":"red","click_event":{"action":"run_command","command":"/locate structure trial_chambers"},"hover_event":{"action":"show_text","value":[{"text":"/locate structure trial_chambers"}]}},\
+                {"text":"[Find Village] ","color":"gold","click_event":{"action":"run_command","command":"/locate structure #village"},"hover_event":{"action":"show_text","value":[{"text":"/locate structure #village"}]}}]
+        /tellraw @a "Do /function coords to see this again."
+    /difficulty easy
+    /xp add @p 24 levels
+    /execute positioned ~2 ~ ~2 positioned over motion_blocking_no_leaves run place template endgame:sniffers ~ ~-1 ~
+    /place template endgame:end_portal ~-2 ~25 ~-2
+    /gamemode survival @a
+    /function $ns:inventory
+
+/function inventory[]:
+    /execute positioned ~ -64 ~ run function:
+        /place template endgame:inventory_default
+        /place template endgame:inventory
+        /clear @p
+        for i in range(27):
+            /item replace entity @p inventory.$i from block ~ ~2 ~ container.$i
+        for i in range(9):
+            /item replace entity @p hotbar.$i from block ~ ~1 ~ container.$i
+        /item replace entity @p weapon.offhand from block ~ ~1 ~ container.9
+        /item replace entity @p armor.head from block ~ ~1 ~ container.14
+        /item replace entity @p armor.chest from block ~ ~1 ~ container.15
+        /item replace entity @p armor.legs from block ~ ~1 ~ container.16
+        /item replace entity @p armor.feet from block ~ ~1 ~ container.17
+        /fill ~ ~ ~ ~ ~2 ~ bedrock
+
+/function minecraft:edit_inventory[]:
+    /execute rotated ~ 0 positioned ^ ^ ^3 positioned over motion_blocking_no_leaves run place template endgame:inventory_default
+    /execute rotated ~ 0 positioned ^ ^ ^3 positioned over motion_blocking_no_leaves run place template endgame:inventory
+    /gamemode creative @a
+    /tellraw @a {"text":"[EDIT INVENTORY] FOLLOW ALL STEPS!", "color":"red", "bold":true}
+    /tellraw @a {"text":"1. Press the save button in the bottom right corner of the structure block menu, or apply redstone power to it", "color":"dark_red"}
+    /tellraw @a {"text":"2. Get the generated structure file, it is under the world folder as generated/endgame/structures/inventory.nbt", "color":"red"}
+    /tellraw @a [{"text":"3. Put that file into a datapack. You can use this page to do that: ", "color":"dark_red"},{"text":"[Generator]","bold":true,"underlined":true,"color":"gray",\
+    "click_event":{"action":"open_url","url":"https://rawcdn.githack.com/Slackow/AA-Endgame-Practice-1.21/9e15089d4f01e89d288f3d1886a104cce0c448d0/edit_inventory.html"},"hover_event":{"action":"show_text","value":[{"text":"Structure File to Datapack"}]}}]
+    /tellraw @a {"text":"4. Place the generated datapack into the datapacks folder of the world. You will now be able to recreate this world to have that inventory.", "color":"red"}

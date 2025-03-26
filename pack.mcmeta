@@ -1,17 +1,28 @@
 {
-  "pack": {
-    "pack_format": 61,
-    "supported_formats": [48, 61],
-    "description": [
-      { "text": "" },
-      { "text": "AA Endgame Datapack", "color": "gold", "bold": true },
-      { "text": "\nBe sure to " },
-      {
-        "text": "Enable Commands",
-        "color": "white",
-        "underlined": true,
-        "italic": true
-      }
-    ]
-  }
+    "pack": {
+        "description": [
+            {
+                "text": ""
+            },
+            {
+                "bold": true,
+                "color": "gold",
+                "text": "AA Endgame Datapack"
+            },
+            {
+                "text": "\nBe sure to "
+            },
+            {
+                "color": "white",
+                "italic": true,
+                "text": "Enable Commands",
+                "underlined": true
+            }
+        ],
+        "pack_format": 61,
+        "supported_formats": {
+            "max_inclusive": 71,
+            "min_inclusive": 48
+        }
+    }
 }

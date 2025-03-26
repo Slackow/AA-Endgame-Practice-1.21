@@ -1,3 +1,4 @@
 *.zip
+*.jar
 /output
 .DS_Store

@@ -1,0 +1,12 @@
+{
+    "authors": [],
+    "depends": {
+        "minecraft": "*"
+    },
+    "description": "",
+    "icon": "pack.png",
+    "id": "endgame",
+    "name": "aa_endgame",
+    "schemaVersion": 1,
+    "version": "1.0"
+}

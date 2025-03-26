@@ -1,0 +1,14 @@
+# By default 'mods.toml' will be copied to 'neoforge.mods.toml' as well, 
+# Create a separate 'neoforge.mods.toml' to override values here
+modLoader="lowcodefml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+showAsResourcePack=false
+showAsDataPack=false
+
+[[mods]]
+modId="endgame"
+version="1.0"
+description=""""""
+logoFile="pack.png"
+authors=""

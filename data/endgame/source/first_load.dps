@@ -41,7 +41,7 @@
                 {"text":"[Find Ocean]\n","color":"blue","clickEvent":{"action":"run_command","value":"/locate biome #endgame:ocean"},"hoverEvent":{"action":"show_text","contents":[{"text":"/locate biome #endgame:ocean"}]}},\
                 {"text":"[Find Trial Chambers] ","color":"red","clickEvent":{"action":"run_command","value":"/locate structure trial_chambers"},"hoverEvent":{"action":"show_text","contents":[{"text":"/locate structure trial_chambers"}]}},\
                 {"text":"[Find Village] ","color":"gold","clickEvent":{"action":"run_command","value":"/locate structure #village"},"hoverEvent":{"action":"show_text","contents":[{"text":"/locate structure #village"}]}}]
-        /tellraw @a "Do /function coords to see this again."
+        /tellraw @a "Do /function coords to see this again, and /function edit_inventory to edit your inventory"
     /difficulty easy
     /xp add @p 24 levels
     /execute positioned ~2 ~ ~2 positioned over motion_blocking_no_leaves run place template endgame:sniffers ~ ~-1 ~
@@ -69,8 +69,10 @@
     /execute rotated ~ 0 positioned ^ ^ ^3 positioned over motion_blocking_no_leaves run place template endgame:inventory_default
     /execute rotated ~ 0 positioned ^ ^ ^3 positioned over motion_blocking_no_leaves run place template endgame:inventory
     /gamemode creative @a
-    /tellraw @a {"text":"[EDIT INVENTORY] FOLLOW ALL STEPS!", "color":"red", "bold":true}
-    /tellraw @a {"text":"1. Press the save button in the bottom right corner of the structure block menu, or apply redstone power to it", "color":"dark_red"}
-    /tellraw @a {"text":"2. Get the generated structure file, it is under the world folder as generated/endgame/structures/inventory.nbt", "color":"red"}
-    /tellraw @a [{"text":"3. Put that file into a datapack. You can use this page to do that: ", "color":"dark_red"},{"text":"[Generator]","bold":true,"underlined":true,"color":"gray","clickEvent":{"action":"open_url","value":"https://rawcdn.githack.com/Slackow/AA-Endgame-Practice-1.21/9e15089d4f01e89d288f3d1886a104cce0c448d0/edit_inventory.html"},"hoverEvent":{"action":"show_text","contents":[{"text":"Structure File to Datapack"}]}}]
-    /tellraw @a {"text":"4. Place the generated datapack into the datapacks folder of the world. You will now be able to recreate this world to have that inventory.", "color":"red"}
+    /tellraw @a {"text":"[EDIT INVENTORY] FOLLOW ALL STEPS!", "color":"aqua", "bold":true}
+    /tellraw @a {"text":"1. Edit the inventory via the chests", "color":"red"}
+    /tellraw @a {"text":"2. Press the save button in the bottom right corner of the structure block menu, or apply redstone power to it", "color":"dark_red"}
+    /tellraw @a {"text":"3. Get the generated structure file, it is under the world folder as generated/endgame/structures/inventory.nbt", "color":"red"}
+    /tellraw @a [{"text":"4. Put that file into a datapack. You can use this page to do that: ", "color":"dark_red"},{"text":"[Generator]","bold":true,"underlined":true,"color":"gray",\
+    "click_event":{"action":"open_url","url":"https://rawcdn.githack.com/Slackow/AA-Endgame-Practice-1.21/9e15089d4f01e89d288f3d1886a104cce0c448d0/edit_inventory.html"},"hover_event":{"action":"show_text","value":[{"text":"Structure File to Datapack"}]}}]
+    /tellraw @a {"text":"5. Place the generated datapack into the datapacks folder of the world. You will now be able to recreate this world to have that inventory.", "color":"red"}
